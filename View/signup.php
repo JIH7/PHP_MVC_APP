@@ -16,7 +16,10 @@ if (isset($_COOKIE[$cookie_name])) {
     <script src="../View/signup.js"></script>
 </head>
 <body>
-    <h1>Create Account</h1>
+    <header>
+        <a href="?action=login_page"><button class="back-button">Already have an account? Log in.</button></a>
+        <h1>Create Account</h1>
+    </header>
     <div class="signup card">
         <form id="signup" method="get" action=".">
             <label for="email">Email Address</label>
@@ -61,6 +64,9 @@ if (isset($_COOKIE[$cookie_name])) {
             >
             <input type="hidden" name="action" value="signup">
             <input type="submit" value="Create Account">
+            <div>
+                <a class="mobile-only" href="?action=login_page">Already have an account? Log in.</a>
+            </div>
         </form>
         <?php 
         if(!empty($error_message)) {

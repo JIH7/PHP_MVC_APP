@@ -4,6 +4,8 @@ if (!isset($_COOKIE[$cookie_name])) {
     include('../View/login.php');
     exit();
 }
+
+$cust = retrieve_cust($_COOKIE[$cookie_name]);
 ?>
 
 <!DOCTYPE html>
@@ -25,9 +27,15 @@ if (!isset($_COOKIE[$cookie_name])) {
     <script src="../View/customerpage.js"></script>
 </head>
 <body>
-    <h1>Congratulations! You've successfully logged in.</h1>
-    <main class="card">
-        <p>Welcome <?php echo $_COOKIE["username"] ?>!</p>
+    <header>
+        <h1>Congratulations!</h1>
+        <h2>You've successfully logged in.</h2>
+    </header>
+    <main class="card info">
+        <h3>Welcome <?php echo $cust[3] ?>!</h3>
+        <p>ID cookie: <?php echo $_COOKIE["id"] ?></p>
+        <p>Username cookie: <?php echo $_COOKIE["username"] ?></p>
+        <p>Password cookie (first few digits of hashed password): <?php echo $_COOKIE["password"] ?></p>
         <form id="logout" method="get" action=".">
             <input type="hidden" name="action" value="logout">
             <input type="submit" value="Log out">

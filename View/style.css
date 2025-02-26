@@ -7,6 +7,7 @@
     --White-40dp: #FFFFFF66;
 
     --Light-Purple: #BB86FC;
+    --Light-Purple-Transparent: #BB86FC66;
     --Light-Orange: #F2964B;
     --Error-Red: #F75E3B;
 
@@ -23,12 +24,16 @@ body {
     justify-content: space-around;
 
     & > * + * {
-        margin-top: 6rem;
+        margin-top: 2rem;
     }
 }
 
 h1 {
     font-size: 3rem;
+}
+
+.back-button {
+    display: none;
 }
 
 a {
@@ -44,6 +49,10 @@ a {
     box-sizing: border-box;
     border-radius: .2rem;
     background-color: var(--White-8dp);
+}
+
+.info > p {
+    text-decoration: underline var(--Light-Purple-Transparent) 1px;
 }
 
 .h16 {
@@ -133,6 +142,31 @@ form {
 }
 
 @media screen and (min-width: 640px) {
+    .mobile-only {
+        display: none;
+    }
+
+    .back-button {
+        display: block;
+
+        position: absolute;
+        top: .5rem;
+        left: .5rem;
+        padding: .5rem;
+        border-radius: .2rem;
+        border: none;
+
+        height: 2.8rem;
+        background-color: var(--White-24dp);
+        color: white;
+
+        transition: background-color 400ms ease-out;
+
+        &:hover {
+            background-color: var(--White-16dp);
+        }
+    }
+
     .login, .signup {
         width: 35%;
 

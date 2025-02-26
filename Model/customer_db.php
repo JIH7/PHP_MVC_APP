@@ -50,4 +50,17 @@
             return false;
         }
     }
+
+    function retrieve_cust($id) {
+        global $db;
+        $query = "SELECT CustID, CustUserName, CustEmail, CustFname, CustLname
+        FROM Customers
+        WHERE CustID=:id";
+        $statement=$db->prepare($query);
+        $statement->bindValue(":id", $id);
+        $statement->execute();
+        $cust=$statement->fetch();
+        $statement->closeCursor();
+        return $cust;
+    }
 ?>
