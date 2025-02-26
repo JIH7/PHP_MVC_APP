@@ -92,9 +92,8 @@ else if ($action == "signup") {
             $error_cursor = 1;
     }
 
-    $pass = password_hash($pass1, PASSWORD_DEFAULT);
-
     if ($error_cursor == -1) {
+        $pass = password_hash($pass1, PASSWORD_DEFAULT);
         $status = create_cust($email, $uname, $pass, $fname, $lname);
         if ($status == true) {
             header('Location: .?action=login&username='.$uname.'&password='.$pass1);

@@ -1,3 +1,5 @@
+"use strict";
+
 const $ = selector => document.querySelector(selector);
 const $all = selector => document.querySelectorAll(selector);
 const focusElement = selector => $(selector).focus();
@@ -15,13 +17,23 @@ const main = () => {
 
     addEventListener("keydown", e => {
         if (e.key == "Enter") {
-            if (inputs.includes(document.activeElement) && inputs[inputs.length-1] != document.activeElement) {
+            if (inputs.includes(document.activeElement)) {
+                let emptyInputs = inputs.filter(input => input.value=="");
+
+                if (emptyInputs.length == 0)
+                    return;
+
                 e.preventDefault();
-                nextInput = inputs[inputs.indexOf(document.activeElement)+1];
-                if (nextInput.value == "")
-                    nextInput.focus();
-                else
-                    nextInput.select();
+                let focusTarget = inputs.indexOf(emptyInputs[0]);
+
+                emptyInputs.every(input => {
+                    if (inputs.indexOf(input) > inputs.indexOf(document.activeElement)) {
+                        focusTarget = inputs.indexOf(input);
+                        return false;
+                    }
+                    return true;
+                });
+                inputs[focusTarget].focus();
             }
         }
     });
