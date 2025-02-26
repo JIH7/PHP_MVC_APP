@@ -1,0 +1,161 @@
+:root {
+    --Dark-Grey: #121212;
+    --White-8dp: #FFFFFF14;
+    --White-16dp: #FFFFFF29;
+    --White-24dp: #FFFFFF3D;
+    --White-32dp: #FFFFFF52;
+    --White-40dp: #FFFFFF66;
+
+    --Light-Purple: #BB86FC;
+    --Light-Orange: #F2964B;
+    --Error-Red: #F75E3B;
+
+
+    font-family: "Roboto", sans-serif;
+    background-color: var(--Dark-Grey);
+    color: white;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    & > * + * {
+        margin-top: 6rem;
+    }
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+a {
+    color: var(--Light-Purple);
+}
+
+.login, .signup {
+    width: 95%;
+    padding: 1rem;
+}
+
+.card {
+    box-sizing: border-box;
+    border-radius: .2rem;
+    background-color: var(--White-8dp);
+}
+
+.h16 {
+    background-color: var(--White-16dp);
+}
+
+.h24 {
+    background-color: var(--White-24dp);
+}
+
+.h32 {
+    background-color: var(--White-32dp);
+}
+
+.h40 {
+    background-color: var(--White-40dp);
+}
+
+.error-text {
+    color: var(--Error-Red);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: .4rem;
+
+    & > * + * {
+        margin-block-start: 1.1rem;
+    }
+
+    & > * {
+        width: 100%;
+    }
+
+    & > input[type='text'], & > input[type='password'], & > input[type='email'] {
+        border: none;
+        border-bottom: 1px solid var(--Light-Purple);
+        transition: border 200ms ease-out;
+        
+        height: 1.8rem;
+        border-radius: .1rem;
+        font-size: large;
+
+        color: white;
+        background-color: unset;
+
+
+        &:focus {
+            outline: none;
+            border-bottom: 1px solid var(--Light-Orange);
+        }
+    }
+
+    & > input[type='submit'] {
+        border: none;
+
+        width: 100%;
+        height: 2.8rem;
+
+        border-radius: .1rem;
+
+        margin-block-start: 2rem;
+
+        background-color: var(--White-24dp);
+        color: white;
+
+        transition: background-color .3s;
+
+        &:hover {
+            background-color: var(--White-16dp);
+        }
+    }
+}
+
+.signup form {
+    flex-flow: row wrap;
+
+    & > .half {
+        width: 45%;
+    }
+
+    & > input.half + input.half, & > label.half + label.half {
+        margin-left: 1rem;
+    }
+}
+
+@media screen and (min-width: 640px) {
+    .login, .signup {
+        width: 35%;
+
+        & > form {
+            padding: .8rem;
+
+            & > * {
+                text-align: left;
+            }
+
+            & > input[type='submit'] {
+                margin-block-start: 2.6rem;
+                text-align: center;
+                height: 3.2rem;
+            }
+        }
+    }
+
+    form {
+        align-items: center;
+
+        & > label {
+            text-align: center;
+        }
+    }
+}
