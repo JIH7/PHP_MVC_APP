@@ -101,6 +101,9 @@ form {
         color: white;
         background-color: unset;
 
+        &.error, &.error:focus {
+            border-bottom: 1px solid var(--Error-Red);
+        }
 
         &:focus {
             outline: none;
