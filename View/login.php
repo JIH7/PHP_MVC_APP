@@ -37,7 +37,7 @@ if (isset($_COOKIE[$cookie_name])) {
             
             <?php
                 if(!empty($error_message)) {
-                    echo '<span class="error-text">'.$error_message.'</span>';
+                    echo $error_message;
                 }
             ?>
             

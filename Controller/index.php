@@ -3,11 +3,20 @@ require('../Controller/loadenv.php');
 require('../Model/database.php');
 require('../Model/customer_db.php');
 
-$action=filter_input(INPUT_POST, 'action');
-$error_message='';
-if($action==NULL) {
+$error_message = ''; // Error messages to be disaplyed on page
+function addErrorText($error) {
+    global $error_message;
+    if ($error_message == '')
+        return '<span class="error-text">'.$error.'</span>';
+    else
+        return '<br><span class="error-text">'.$error.'</span>';
+}
+
+$action=filter_input(INPUT_POST, 'action'); // Get route
+
+if($action==NULL) {  // If no post request, check for get request
     $action=filter_input(INPUT_GET, 'action');
-    if ($action==NULL) {
+    if ($action==NULL) { // If no action parameter from get or post, serve the login page
         $action='login_page';
     }
 }
@@ -18,10 +27,11 @@ if($action=='login_page') {
 else if ($action=="login") {
     $uname=filter_input(INPUT_GET, 'username');
     $pass=filter_input(INPUT_GET, 'password');
-    $customer=login_cust($uname, $pass);
+    $customer=login_cust($uname, $pass); // Login function from customer model
     if($customer==NULL) {
-        $error_message='Username does not exist or username and password do not match.';
+        $error_message.=addErrorText('Username does not exist or username and password does not match.');
         include('../View/login.php');
+        
     }
     else {
         $id=$customer[0];
@@ -46,48 +56,46 @@ else if ($action == "signup") {
     $pass1=filter_input(INPUT_GET, "password1");
     $pass2=filter_input(INPUT_GET, "password2");
     
-
-    $error_message = "";
     $error_cursor = -1;
 
     if (empty($email)) {
-        $error_message = '<span class="error-text">Fields may not be empty</span><br>';
+        $error_message.=addErrorText('Fields may not be empty.');
         $error_cursor = 0;
     }
     else if (empty($uname)) {
-        $error_message = '<span class="error-text">Fields may not be empty</span><br>';
+        $error_message.=addErrorText('Fields may not be empty.');
         $error_cursor = 1;
     }
     else if (empty($fname)) {
-        $error_message = '<span class="error-text">Fields may not be empty</span><br>';
+        $error_message.=addErrorText('Fields may not be empty.');
         $error_cursor = 2;
     }
     else if (empty($lname)) {
-        $error_message = '<span class="error-text">Fields may not be empty</span><br>';
+        $error_message.=addErrorText('Fields may not be empty.');
         $error_cursor = 3;
     }
     else if (empty($pass1)) {
-        $error_message = '<span class="error-text">Fields may not be empty</span><br>';
+        $error_message.=addErrorText('Fields may not be empty.');
         $error_cursor = 4;
     }
     else if (empty($pass2)) {
-        $error_message = '<span class="error-text">Fields may not be empty</span><br>';
+        $error_message.=addErrorText('Fields may not be empty.');
         $error_cursor = 5;
     }
 
     if ((!empty($pass1) && !empty($pass2)) && $pass1 != $pass2) {
-        $error_message .= '<span class="error-text">Passwords must match</span><br>';
+        $error_message.=addErrorText('Passwords must match.');
         $error_cursor = 4;
     }
 
     if (check_existing("CustEmail", $email)) {
-        $error_message .= '<span class="error-text">There is already an account with that email.</span><br>';
+        $error_message.=addErrorText('There is already an account with this email address.');
         $error_cursor = 0;
     }
 
     
     if (check_existing("CustUserName", $uname)) {
-        $error_message .= '<span class="error-text">There is already an account with that username.</span><br>';
+        $error_message.=addErrorText('This username is already taken.');
         if ($error_cursor >= 1)
             $error_cursor = 1;
     }
