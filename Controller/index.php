@@ -7,9 +7,9 @@ $error_message = ''; // Error messages to be disaplyed on page
 function addErrorText($error) {
     global $error_message;
     if ($error_message == '')
-        return '<span class="error-text">'.$error.'</span>';
+        $error_message='<span class="error-text">'.$error.'</span>';
     else
-        return '<br><span class="error-text">'.$error.'</span>';
+        $error_message.='<br><span class="error-text">'.$error.'</span>';
 }
 
 $action=filter_input(INPUT_POST, 'action'); // Get route
@@ -29,7 +29,7 @@ else if ($action=="login") { // Handle login form submission
     $pass=filter_input(INPUT_GET, 'password');
     $customer=login_cust($uname, $pass); // Login function from customer model
     if($customer==NULL) {
-        $error_message.=addErrorText('Username does not exist or username and password do not match.');
+        addErrorText('Username does not exist or username and password do not match.');
         include('../View/login.php');
     }
     else {
@@ -59,42 +59,42 @@ else if ($action == "signup") { // Handle signup for submission
     $error_cursor = -1;
     // Handle empty fields
     if (empty($email)) {
-        $error_message.=addErrorText('Fields may not be empty.');
+        addErrorText('Fields may not be empty.');
         $error_cursor = 0;
     }
     else if (empty($uname)) {
-        $error_message.=addErrorText('Fields may not be empty.');
+        addErrorText('Fields may not be empty.');
         $error_cursor = 1;
     }
     else if (empty($fname)) {
-        $error_message.=addErrorText('Fields may not be empty.');
+        addErrorText('Fields may not be empty.');
         $error_cursor = 2;
     }
     else if (empty($lname)) {
-        $error_message.=addErrorText('Fields may not be empty.');
+        addErrorText('Fields may not be empty.');
         $error_cursor = 3;
     }
     else if (empty($pass1)) {
-        $error_message.=addErrorText('Fields may not be empty.');
+        addErrorText('Fields may not be empty.');
         $error_cursor = 4;
     }
     else if (empty($pass2)) {
-        $error_message.=addErrorText('Fields may not be empty.');
+        addErrorText('Fields may not be empty.');
         $error_cursor = 5;
     }
     // Check for password mismatch
     if ((!empty($pass1) && !empty($pass2)) && $pass1 != $pass2) {
-        $error_message.=addErrorText('Passwords must match.');
+        addErrorText('Passwords must match.');
         $error_cursor = 4;
     }
     // Check for duplicate email
     if (check_existing("CustEmail", $email)) {
-        $error_message.=addErrorText('There is already an account with this email address.');
+        addErrorText('There is already an account with this email address.');
         $error_cursor = 0;
     }
     // Check for duplicate username
     if (check_existing("CustUserName", $uname)) {
-        $error_message.=addErrorText('This username is already taken.');
+        addErrorText('This username is already taken.');
         if ($error_cursor >= 1)
             $error_cursor = 1;
     }
@@ -106,7 +106,7 @@ else if ($action == "signup") { // Handle signup for submission
             header('Location: .?action=login&username='.$uname.'&password='.$pass1);
         }
         else { // ToDo: More robust error logging for if this situation were to occur
-            $error_message.=addErrorText("An error occured on our end. Please try again later.");
+            addErrorText("An error occured on our end. Please try again later.");
         }
     }
     else { // Serve the signup page again with error messages
