@@ -4,7 +4,7 @@
         global $db;
         // Select pased on provided username
         $query='SELECT CustID, CustUserName, CustPassword FROM Customers
-        WHERE CustUserName = :username'; // Since passwords are hashed and usernames are unique, I query by username only
+        WHERE CustUserName = :username OR CustEmail = :username'; // Since passwords are hashed and usernames are unique, I query by username only
         $statement=$db->prepare($query);
         $statement->bindValue(':username', $u);
         $statement->execute();

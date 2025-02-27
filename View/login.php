@@ -25,7 +25,7 @@ if (isset($_COOKIE[$cookie_name])) {
     <h1>Welcome!</h1>
     <div class="login card">
         <form id="login" method="get" action=".">
-            <label for="username"><strong>User Name</strong></label>
+            <label for="username"><strong>Username or Email <Address></Address></strong></label>
             <input type="text" name="username" id="username">
             <label for="password"><strong>Password</strong></label>
             <input type="password" name="password" id="password">
