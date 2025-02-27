@@ -106,7 +106,7 @@ else if ($action == "signup") { // Handle signup for submission
             header('Location: .?action=login&username='.$uname.'&password='.$pass1);
         }
         else { // ToDo: More robust error logging for if this situation were to occur
-            $error_message.=addErrorText("An error occured on our end. Please try again later.")
+            $error_message.=addErrorText("An error occured on our end. Please try again later.");
         }
     }
     else { // Serve the signup page again with error messages
